@@ -3,6 +3,7 @@ package epub
 import (
 	"fmt"
 	"io"
+	"time"
 
 	"github.com/beevik/etree"
 )
@@ -35,6 +36,27 @@ func (c *container) write(w io.Writer) (int64, error) {
 	return doc.WriteTo(w)
 }
 
+type opf struct {
+	Title       string
+	Lang        string
+	BookID      string
+	Date        time.Time
+	Description string
+
+	Meta []struct {
+		Attrs map[string]string
+		Value string
+	}
+
+	Manifest []map[string]string
+}
+
+func(o *opf) write(o io.Writer) (int 64, error) {
+	return 0, nil
+}
+
 type Book struct {
 	Container container
+	Mime      string
+	OPF       opf
 }
